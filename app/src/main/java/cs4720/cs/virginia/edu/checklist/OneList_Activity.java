@@ -44,6 +44,16 @@ public class OneList_Activity extends AppCompatActivity {
         completeListView.setAdapter(cAdapter);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     //adapter used for the tasks to be completed
     private class TaskAdapter extends ArrayAdapter<Task> {
         private ArrayList<Task> taskList;

@@ -1,10 +1,12 @@
 package cs4720.cs.virginia.edu.checklist;
 
+import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -152,5 +154,10 @@ public class OneTask_Activity extends FragmentActivity implements
     @Override
     public void onLocationChanged(Location location) {
         handleNewLocation(location);
+    }
+
+    public void goBack(View view) {
+        Intent intent = new Intent(this, OneList_Activity.class);
+        startActivity(intent);
     }
 }

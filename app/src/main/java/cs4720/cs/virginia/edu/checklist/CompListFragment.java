@@ -7,18 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Rock Beom Kim rk5dy
+ * Rock Kim rk5dy
  * Peter Bahng pb5te
  */
-public class OneListFragment extends Fragment {
-    public OneListFragment() {
+public class CompListFragment extends Fragment {
+    public CompListFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.listfragment_main, container, false);
+        return inflater.inflate(R.layout.complistfragment_main, container, false);
     }
 
     @Override

@@ -1,0 +1,30 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignBottom="@+id/edit_name"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/edit_one_item_field"
+        android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_field"
+        android:id="@+id/fragment2" />
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:id="@+id/map"
+        tools:context="cs4720.cs.virginia.edu.checklist.OneTask_Activity"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</LinearLayout>
+
+
+

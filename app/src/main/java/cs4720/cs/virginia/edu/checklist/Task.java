@@ -1,7 +1,8 @@
 package cs4720.cs.virginia.edu.checklist;
 
 /**
- * Created by Joltbolt on 9/14/2015.
+ * Rock Beom Kim rk5dy
+ * Peter Bahng pb5te
  */
 public class Task {
     private String name;

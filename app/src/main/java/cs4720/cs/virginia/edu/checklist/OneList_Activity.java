@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -70,7 +71,7 @@ public class OneList_Activity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             Task task = taskList.get(position);
             ViewHolder holder;
             if (convertView == null) {
@@ -99,6 +100,11 @@ public class OneList_Activity extends AppCompatActivity {
                 holder.remove.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         Intent intent = new Intent(getContext(), OneTask_Activity.class);
+                        Button b = (Button) v;
+                        Task task = (Task) b.getTag();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("current", task);
+                        intent.putExtras(bundle);
                         startActivity(intent);
                     }
                 });
@@ -132,7 +138,7 @@ public class OneList_Activity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             Task task = completedList.get(position);
             ViewHolder holder;
             if (convertView == null) {
@@ -159,6 +165,11 @@ public class OneList_Activity extends AppCompatActivity {
                 holder.remove.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         Intent intent = new Intent(getContext(), OneTask_Activity.class);
+                        Button b = (Button) v;
+                        Task task = (Task) b.getTag();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("current", task);
+                        intent.putExtras(bundle);
                         startActivity(intent);
                     }
                 });
@@ -181,6 +192,24 @@ public class OneList_Activity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
+    }
+
+    //saves instance state so the list isn't destroyed upon calling the one task activity
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putParcelableArrayList("tList", taskList);
+        savedInstanceState.putParcelableArrayList("cList", completedList);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.taskList = savedInstanceState.getParcelableArrayList("cList");
+        this.taskList = savedInstanceState.getParcelableArrayList("tList");
     }
 
     @Override

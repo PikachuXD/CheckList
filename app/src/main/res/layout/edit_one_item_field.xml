@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/edit_name_button"
+        android:onClick="editName"
         android:layout_below="@+id/textView"
         android:layout_toRightOf="@+id/edit_name"
         android:layout_toEndOf="@+id/edit_name" />

@@ -3,10 +3,12 @@ package cs4720.cs.virginia.edu.checklist;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -18,6 +20,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Rock Beom Kim rk5dy
@@ -35,9 +40,12 @@ public class OneTask_Activity extends FragmentActivity implements
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private LocationRequest mLocationRequest;
 
+    Task current;
+    EditText nameField;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_onetask);
         setUpMapIfNeeded();
 
@@ -50,7 +58,15 @@ public class OneTask_Activity extends FragmentActivity implements
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
-                .setFastestInterval(1000); // 1 second, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
+        Intent intent = getIntent();
+        if (intent != null) {
+
+            current = (Task) intent.getParcelableExtra("current");
+            nameField = (EditText) findViewById(R.id.edit_name);
+            nameField.setText(current.getName());
+        }
     }
 
     @Override
@@ -156,8 +172,22 @@ public class OneTask_Activity extends FragmentActivity implements
         handleNewLocation(location);
     }
 
+    //saves instance state so the list isn't destroyed upon calling the one list activity
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
     public void goBack(View view) {
         Intent intent = new Intent(this, OneList_Activity.class);
+        intent.putExtra("current", (Parcelable) current);
         startActivity(intent);
+    }
+
+    public void editName(View view) {
+        current.setName(nameField.getText().toString());
+
     }
 }

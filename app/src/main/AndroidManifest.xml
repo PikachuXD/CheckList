@@ -36,10 +36,7 @@
             android:name=".OneTask_Activity"
             android:label="@string/title_activity_maps" >
         </activity>
-        <activity
-            android:name=".ToBeCompleteHeader"
-            android:label="@string/title_activity_to_be_complete_header" >
-        </activity>
+
     </application>
 
 </manifest>

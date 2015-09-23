@@ -96,6 +96,7 @@
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/edit_loc_button"
+        android:onClick="submitloc"
         android:layout_alignBottom="@+id/edit_loc"
         android:layout_toRightOf="@+id/edit_loc"
         android:layout_toEndOf="@+id/edit_loc" />

@@ -12,12 +12,14 @@ import java.io.Serializable;
 public class Task implements Parcelable {
     private String name;
     boolean checked;
+    boolean isComplete;
     private String duedate;
     private int duetime;
 
     public Task(String n) {
         name = n;
         checked = false;
+        isComplete = false;
     }
 
     public Task(Parcel in) {
@@ -32,11 +34,11 @@ public class Task implements Parcelable {
     public String getName(){
         return name;
     }
-
+    public boolean getIsComplete() { return isComplete; }
     public void setName(String s) {
         name = s;
     }
-
+    public void setIsComplete(boolean b) { isComplete = b; }
     public boolean getChecked() {
         return checked;
     }

@@ -2,7 +2,9 @@ package cs4720.cs.virginia.edu.checklist;
 
 import android.content.Intent;
 import android.content.IntentSender;
+import android.location.Address;
 import android.location.Location;
+import android.location.Geocoder;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -19,10 +21,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Rock Beom Kim rk5dy
@@ -34,11 +39,13 @@ public class OneTask_Activity extends FragmentActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    private Geocoder geocoder;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private GoogleApiClient mGoogleApiClient;
     public static final String TAG = OneTask_Activity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private LocationRequest mLocationRequest;
+    Marker marker;
 
     Task current;
     EditText nameField;
@@ -59,7 +66,7 @@ public class OneTask_Activity extends FragmentActivity implements
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
-
+        geocoder = new Geocoder(this);
         Intent intent = getIntent();
         if (intent != null) {
 
@@ -189,5 +196,23 @@ public class OneTask_Activity extends FragmentActivity implements
     public void editName(View view) {
         current.setName(nameField.getText().toString());
 
+    }
+
+    public void submitloc(View view) {
+        EditText locfield = (EditText) findViewById(R.id.edit_loc);
+        List<Address> listOfAddress;
+        try {
+            listOfAddress = geocoder.getFromLocationName(locfield.getText().toString(), 1);
+            ;
+            Address address = listOfAddress.get(0);
+            MarkerOptions options = new MarkerOptions()
+                    .title(address.getLocality())
+                    .position(new LatLng(address.getLatitude(),
+                            address.getLongitude()));
+
+            marker = mMap.addMarker(options);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

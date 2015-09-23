@@ -2,6 +2,7 @@ package cs4720.cs.virginia.edu.checklist;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -22,6 +23,7 @@ public class OneList_Activity extends AppCompatActivity {
     ArrayList<Task> completedList = new ArrayList<Task>();
     TaskAdapter tAdapter = null;
     TaskAdapter cAdapter = null;
+    Task passed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,19 @@ public class OneList_Activity extends AppCompatActivity {
 
         listView.setAdapter(tAdapter);
         completeListView.setAdapter(cAdapter);
+
+        //Intent intent = getIntent();
+        /*if (intent != null) {
+
+            passed = (Task) intent.getParcelableExtra("current");
+            if (passed.getIsComplete()) {
+                taskList.add(passed);
+                tAdapter.notifyDataSetChanged();
+            } else {
+                completedList.add(passed);
+                cAdapter.notifyDataSetChanged();
+            }
+        }*/
     }
 
     @Override

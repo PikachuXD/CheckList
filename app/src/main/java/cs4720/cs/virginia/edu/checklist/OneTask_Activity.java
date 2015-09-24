@@ -9,6 +9,9 @@ import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -47,12 +50,13 @@ public class OneTask_Activity extends FragmentActivity implements
     private LocationRequest mLocationRequest;
     Marker marker;
 
-    Task current;
-    EditText nameField;
+    private Task current;
+    private Task original;
+    private EditText nameField;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_onetask);
         setUpMapIfNeeded();
 
@@ -73,7 +77,10 @@ public class OneTask_Activity extends FragmentActivity implements
             current = (Task) intent.getParcelableExtra("current");
             nameField = (EditText) findViewById(R.id.edit_name);
             nameField.setText(current.getName());
+            original = new Task(current.getName());
+            original.setEqual(current);
         }
+
     }
 
     @Override
@@ -110,6 +117,14 @@ public class OneTask_Activity extends FragmentActivity implements
         super.onResume();
         setUpMapIfNeeded();
         mGoogleApiClient.connect();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_one_task, menu);
+        return true;
     }
 
     @Override
@@ -190,6 +205,8 @@ public class OneTask_Activity extends FragmentActivity implements
     public void goBack(View view) {
         Intent intent = new Intent(this, OneList_Activity.class);
         intent.putExtra("current", (Parcelable) current);
+        intent.putExtra("original", (Parcelable) original);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,8 @@ public class OneList_Activity extends AppCompatActivity {
     TaskAdapter tAdapter = null;
     TaskAdapter cAdapter = null;
     Task passed;
+    Task original;
+    int passedPosition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,18 +40,7 @@ public class OneList_Activity extends AppCompatActivity {
         listView.setAdapter(tAdapter);
         completeListView.setAdapter(cAdapter);
 
-        //Intent intent = getIntent();
-        /*if (intent != null) {
 
-            passed = (Task) intent.getParcelableExtra("current");
-            if (passed.getIsComplete()) {
-                taskList.add(passed);
-                tAdapter.notifyDataSetChanged();
-            } else {
-                completedList.add(passed);
-                cAdapter.notifyDataSetChanged();
-            }
-        }*/
     }
 
     @Override
@@ -60,7 +52,10 @@ public class OneList_Activity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
-
+    @Override
+    protected void onStop() {super.onStop(); }
+    @Override
+    protected void onRestart() {super.onRestart(); }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -120,19 +115,48 @@ public class OneList_Activity extends AppCompatActivity {
     public void setAsComplete(View view) {
         ArrayList<Task> tmp = new ArrayList<Task>();
         for (Task t : taskList) {
-            if (t.getChecked()) tmp.add(t);
+            if (t.getChecked()) {
+                tmp.add(t);
+                t.setIsComplete(true);
+            }
         }
-
         completedList.addAll(tmp);
         cAdapter.notifyDataSetChanged();
         taskList.removeAll(tmp);
         tAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        original = intent.getParcelableExtra("original");
+        passed = intent.getParcelableExtra("current");
+        Log.i("OneList_Activity", passed.getName());
+        Log.i("OneList_Activity", original.getName());
+        if (!original.getIsComplete()) {
+                Log.i("OneList_activity", "sup");
+                taskList.set(getIndexOfTaskList(taskList, original), passed);
+                tAdapter.notifyDataSetChanged();
+        } else {
+            completedList.set(getIndexOfTaskList(taskList, original), passed);
+            cAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private int getIndexOfTaskList(ArrayList<Task> tl, Task t) {
+        for (int i = 0; i < tl.size(); i++) {
+            if (tl.get(i).getName().equals(t.getName())) return i;
+        }
+        return -1;
+    }
     public void setAsIncomplete(View view) {
         ArrayList<Task> tmp = new ArrayList<Task>();
         for (Task t : completedList) {
-            if (t.getChecked()) tmp.add(t);
+            if (t.getChecked()) {
+                tmp.add(t);
+                t.setIsComplete(false);
+            }
         }
 
         completedList.removeAll(tmp);

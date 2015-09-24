@@ -42,7 +42,8 @@ public class Task implements Parcelable {
     public boolean getChecked() {
         return checked;
     }
-
+    public String getDueDate() { return duedate;    }
+    public int getDueTime() {return duetime;}
     public void setChecked(boolean f) {
         this.checked = f;
     }
@@ -62,4 +63,12 @@ public class Task implements Parcelable {
             return new Task[size];
         }
     };
+
+    public void setEqual(Task t) {
+        name = t.getName();
+        checked = t.getChecked();
+        isComplete = t.getIsComplete();
+        duedate = t.getDueDate();
+        duetime = t.getDueTime();
+    }
 }

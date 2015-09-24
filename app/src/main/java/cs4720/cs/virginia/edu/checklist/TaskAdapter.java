@@ -61,6 +61,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
                     Task task = (Task) b.getTag();
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("current", task);
+                    intent.putExtra("position", position);
                     intent.putExtras(bundle);
                     getContext().startActivity(intent);
                 }

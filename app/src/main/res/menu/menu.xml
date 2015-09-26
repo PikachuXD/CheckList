@@ -5,5 +5,7 @@
         app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_add"
         android:title="Add Task" />
-
+    <item android:id="@+id/sort_task_list_button" android:icon="@drawable/sorticon"
+        android:title="@string/sort_tasks"
+        android:orderInCategory="100" app:showAsAction="never" />
 </menu>

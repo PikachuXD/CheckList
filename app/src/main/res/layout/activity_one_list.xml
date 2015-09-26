@@ -14,21 +14,30 @@
         android:name="cs4720.cs.virginia.edu.checklist.ToBeCompleteHeader"
         android:id="@+id/fragment"
         tools:layout="@layout/activity_to_be_complete_header" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
     <fragment
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:id="@+id/tbd_list"
         android:name="cs4720.cs.virginia.edu.checklist.OneListFragment"
         tools:layout="@layout/listfragment_main" android:layout_width="match_parent"
-        android:layout_height="267dp" />
-
+        android:layout_height="188dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="cs4720.cs.virginia.edu.checklist.CompletedListHeaderFragment"
         android:id="@+id/fragment3"
         tools:layout="@layout/fragment_completed_list_header"/>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

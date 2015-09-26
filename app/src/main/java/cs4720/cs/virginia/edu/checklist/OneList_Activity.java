@@ -1,5 +1,6 @@
 package cs4720.cs.virginia.edu.checklist;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Rock Beom Kim rk5dy
@@ -26,7 +28,6 @@ public class OneList_Activity extends AppCompatActivity {
     TaskAdapter cAdapter = null;
     Task passed;
     Task original;
-    int passedPosition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +83,32 @@ public class OneList_Activity extends AppCompatActivity {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        original = data.getParcelableExtra("original");
+        passed = data.getParcelableExtra("current");
+        switch(requestCode) {
+            case (0) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Log.i("Sup", "bruh");
+                    original = data.getParcelableExtra("original");
+                    passed = data.getParcelableExtra("current");
+                    if (!original.getIsComplete()) {
+                        Log.i("OneList_activity", "sup");
+                        taskList.set(getIndexOfTaskList(taskList, original), passed);
+                        tAdapter.notifyDataSetChanged();
+                    } else {
+                        completedList.set(getIndexOfTaskList(taskList, original), passed);
+                        cAdapter.notifyDataSetChanged();
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -106,7 +133,22 @@ public class OneList_Activity extends AppCompatActivity {
 
                 builder.create().show();
                 return true;
-
+            case R.id.sort_task_list_button:
+                AlertDialog.Builder build2 = new AlertDialog.Builder(this);
+                build2.setTitle("Sort by name?");
+                build2.setMessage("Yes or no?");
+                build2.setPositiveButton("Sort", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Collections.sort(taskList);
+                        tAdapter.notifyDataSetChanged();
+                        Collections.sort(completedList);
+                        cAdapter.notifyDataSetChanged();
+                    }
+                });
+                build2.setNegativeButton("Cancel", null);
+                build2.create().show();
+                return true;
             default:
                 return false;
         }
@@ -129,19 +171,7 @@ public class OneList_Activity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        setIntent(intent);
-        original = intent.getParcelableExtra("original");
-        passed = intent.getParcelableExtra("current");
-        Log.i("OneList_Activity", passed.getName());
-        Log.i("OneList_Activity", original.getName());
-        if (!original.getIsComplete()) {
-                Log.i("OneList_activity", "sup");
-                taskList.set(getIndexOfTaskList(taskList, original), passed);
-                tAdapter.notifyDataSetChanged();
-        } else {
-            completedList.set(getIndexOfTaskList(taskList, original), passed);
-            cAdapter.notifyDataSetChanged();
-        }
+
     }
 
     private int getIndexOfTaskList(ArrayList<Task> tl, Task t) {

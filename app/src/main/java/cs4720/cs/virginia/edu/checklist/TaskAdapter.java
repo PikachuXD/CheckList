@@ -1,5 +1,6 @@
 package cs4720.cs.virginia.edu.checklist;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,14 +57,13 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
             holder.edit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), OneTask_Activity.class);
+                    Intent intent = new Intent(getContext(), OneTaskActivity.class);
                     Button b = (Button) v;
                     Task task = (Task) b.getTag();
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("current", task);
-                    intent.putExtra("position", position);
                     intent.putExtras(bundle);
-                    getContext().startActivity(intent);
+                    ((Activity) getContext()).startActivityForResult(intent, 0);
                 }
             });
 

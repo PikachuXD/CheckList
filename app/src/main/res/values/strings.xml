@@ -2,10 +2,11 @@
     <string name="app_name">CheckList</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="sort_tasks">Sort Lists</string>
     <string name="title_activity_maps">Map</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_to_be_complete_header">ToBeCompleteHeader</string>
+    <string name="title_activity_one_task">Edit One Item</string>
 </resources>

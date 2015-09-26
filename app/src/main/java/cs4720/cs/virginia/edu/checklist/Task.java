@@ -4,12 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  * Rock Beom Kim rk5dy
  * Peter Bahng pb5te
  */
-public class Task implements Parcelable {
+public class Task implements Parcelable, Comparable<Task> {
     private String name;
     boolean checked;
     boolean isComplete;
@@ -71,4 +72,13 @@ public class Task implements Parcelable {
         duedate = t.getDueDate();
         duetime = t.getDueTime();
     }
+
+    public int compareTo(Task compareTask) {
+
+        String compto = ((Task) compareTask).getName();
+
+        return this.getName().compareTo(compto);
+
+    }
+
 }

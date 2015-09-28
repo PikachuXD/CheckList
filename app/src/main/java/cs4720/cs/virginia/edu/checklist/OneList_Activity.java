@@ -2,6 +2,7 @@ package cs4720.cs.virginia.edu.checklist;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +14,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.regex.Pattern;
 
 /**
  * Rock Beom Kim rk5dy
@@ -41,6 +45,37 @@ public class OneList_Activity extends AppCompatActivity {
         listView.setAdapter(tAdapter);
         completeListView.setAdapter(cAdapter);
 
+        String FILENAME = "oneliststore.txt";
+        try {
+            FileInputStream fis = openFileInput(FILENAME);
+            StringBuilder builder = new StringBuilder();
+            int ch;
+            while ((ch = fis.read()) != -1) {
+                builder.append((char) ch);
+            }
+            String[] fromFile = builder.toString().trim().split(Pattern.quote("^"));
+            Log.i("OneListActivity", builder.toString());
+            for (int i = 0; i < fromFile.length;i++) Log.i("OneListActivityFile", fromFile[i]);
+            int index = 1;
+            Log.i("Firstline", fromFile[0]);
+            int sizeOfTaskList = Integer.parseInt(fromFile[0]);
+
+            while (index < sizeOfTaskList * 4) {
+                Task t = new Task(fromFile[index], fromFile[index+1], fromFile[index+2], fromFile[index+3]);
+                t.setIsComplete(false);
+                taskList.add(t);
+                index+= 4;
+            }
+            Log.i("Complete tasks", "Output complete");
+            while (index < fromFile.length) {
+                Task t = new Task(fromFile[index], fromFile[index+1], fromFile[index+2], fromFile[index+3]);
+                t.setIsComplete(true);
+                completedList.add(t);
+                index+= 4;
+            }
+        } catch(Exception e) {
+            Log.e("No file to store in", e.getMessage());
+        }
 
     }
 
@@ -54,7 +89,29 @@ public class OneList_Activity extends AppCompatActivity {
         super.onResume();
     }
     @Override
-    protected void onStop() {super.onStop(); }
+    protected void onStop() {
+        super.onStop();
+
+        String FILENAME = "oneliststore.txt";
+        String toFile = "";
+        toFile += Integer.toString(taskList.size()) + "^";
+        for (Task t : taskList) {
+            toFile += t.getName() + "^" + t.getDueDate() + "^" + t.getDueTime() + "^" + t.getAddress() + "^";
+        }
+        toFile += Integer.toString(completedList.size()) + "^";
+        for (Task t : completedList) {
+            toFile += t.getName() + "^" + t.getDueDate() + "^" + t.getDueTime() + "^" + t.getAddress() + "^";
+        }
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            fos.write(toFile.getBytes());
+            fos.close();
+        } catch (Exception e) {
+            Log.e("Storage", e.getMessage());
+        }
+        Log.i("onStop", toFile);
+    }
+
     @Override
     protected void onRestart() {super.onRestart(); }
     @Override
@@ -90,15 +147,14 @@ public class OneList_Activity extends AppCompatActivity {
         switch(requestCode) {
             case (0) : {
                 if (resultCode == Activity.RESULT_OK) {
-                    Log.i("Sup", "bruh");
                     original = data.getParcelableExtra("original");
                     passed = data.getParcelableExtra("current");
                     if (!original.getIsComplete()) {
-                        Log.i("OneList_activity", "sup");
+                        Log.i("OneList_activity", original.getName() + original.getIsComplete());
                         taskList.set(getIndexOfTaskList(taskList, original), passed);
                         tAdapter.notifyDataSetChanged();
                     } else {
-                        completedList.set(getIndexOfTaskList(taskList, original), passed);
+                        completedList.set(getIndexOfTaskList(completedList, original), passed);
                         cAdapter.notifyDataSetChanged();
                     }
                 }
@@ -156,15 +212,20 @@ public class OneList_Activity extends AppCompatActivity {
 
     public void setAsComplete(View view) {
         ArrayList<Task> tmp = new ArrayList<Task>();
+        ArrayList<Task> tmptoRemove = new ArrayList<Task>();
         for (Task t : taskList) {
             if (t.getChecked()) {
-                tmp.add(t);
-                t.setIsComplete(true);
+                Task tmpt = new Task("a");
+                tmpt.setEqual(t);
+                tmpt.setIsComplete(true);
+                tmp.add(tmpt);
+                tmptoRemove.add(t);
+                Log.i("The task", tmpt.getName() + ": " + tmpt.getIsComplete());
             }
         }
         completedList.addAll(tmp);
         cAdapter.notifyDataSetChanged();
-        taskList.removeAll(tmp);
+        taskList.removeAll(tmptoRemove);
         tAdapter.notifyDataSetChanged();
     }
 
@@ -182,14 +243,17 @@ public class OneList_Activity extends AppCompatActivity {
     }
     public void setAsIncomplete(View view) {
         ArrayList<Task> tmp = new ArrayList<Task>();
+        ArrayList<Task> tmptoRemove = new ArrayList<Task>();
         for (Task t : completedList) {
             if (t.getChecked()) {
-                tmp.add(t);
-                t.setIsComplete(false);
+                Task tmpt = new Task("a");
+                tmpt.setEqual(t);
+                tmpt.setIsComplete(false);
+                tmp.add(tmpt);
+                tmptoRemove.add(t);
             }
         }
-
-        completedList.removeAll(tmp);
+        completedList.removeAll(tmptoRemove);
         cAdapter.notifyDataSetChanged();
         taskList.addAll(tmp);
         tAdapter.notifyDataSetChanged();

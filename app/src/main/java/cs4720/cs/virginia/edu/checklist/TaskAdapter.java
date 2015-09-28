@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
     private class ViewHolder {
         Button edit;
+        TextView datetime;
         CheckBox cBox;
     }
 
@@ -42,6 +44,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
             holder = new ViewHolder();
             holder.edit = (Button) convertView.findViewById(R.id.edit_button);
+            holder.datetime = (TextView) convertView.findViewById(R.id.datetimeoftask);
             holder.cBox = (CheckBox) convertView.findViewById(R.id.checkBox);
             convertView.setTag(holder);
 
@@ -74,6 +77,11 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         holder.cBox.setTag(task);
         holder.edit.setTag(task);
         holder.cBox.setText(task.getName());
+        if (task.getDueTime().equals("") || task.getDueDate().equals("")) {
+            holder.datetime.setText("");
+        } else {
+            holder.datetime.setText(task.getDueDate() + "@" + task.getDueTime());
+        }
         holder.cBox.setChecked(task.getChecked());
 
         return convertView;

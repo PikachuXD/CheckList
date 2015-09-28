@@ -12,10 +12,26 @@
 
     <fragment
         android:layout_width="match_parent"
-        android:layout_height="307dp"
-        tools:layout="@layout/edit_one_item_field"
-        android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_field"
-        android:id="@+id/fragment2" />
+        android:layout_height="70dp"
+        tools:layout="@layout/edit_one_item_name"
+        android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_name"
+        android:id="@+id/namefrag" />
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        tools:layout="@layout/edit_one_item_date"
+        android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_date"
+        android:id="@+id/datetimefrag"
+        />
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        tools:layout="@layout/edit_one_item_loc"
+        android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_loc"
+        android:id="@+id/locfrag"
+        />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"

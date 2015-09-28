@@ -1,5 +1,6 @@
 package cs4720.cs.virginia.edu.checklist;
 
+import android.location.Address;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,44 +16,59 @@ public class Task implements Parcelable, Comparable<Task> {
     boolean checked;
     boolean isComplete;
     private String duedate;
-    private int duetime;
-
+    private String duetime;
+    private String address;
     public Task(String n) {
         name = n;
         checked = false;
         isComplete = false;
+        address = "";
+        duedate = "";
+        duetime = "";
     }
 
     public Task(Parcel in) {
         name = in.readString();
         duedate = in.readString();
-        duetime = in.readInt();
+        duetime = in.readString();
     }
 
     public int describeContents() {
         return 0;
     }
+
+    //name
     public String getName(){
         return name;
     }
-    public boolean getIsComplete() { return isComplete; }
     public void setName(String s) {
         name = s;
     }
+
+    //is the task complete? Is the item checked?
+    public boolean getIsComplete() { return isComplete; }
     public void setIsComplete(boolean b) { isComplete = b; }
     public boolean getChecked() {
         return checked;
     }
-    public String getDueDate() { return duedate;    }
-    public int getDueTime() {return duetime;}
     public void setChecked(boolean f) {
         this.checked = f;
     }
 
+    //due date and due time
+    public String getDueDate() { return duedate;    }
+    public String getDueTime() {return duetime;}
+    public void setDuetime(String t) {duetime = t;}
+    public void setDuedate(String t) {duedate = t;}
+
+    //getting the address
+    public String getAddress() {return address;}
+    public void setAddress(String a) {this.address = a;}
+
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(name);
         out.writeString(duedate);
-        out.writeInt(duetime);
+        out.writeString(duetime);
     }
 
     public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
@@ -71,6 +87,7 @@ public class Task implements Parcelable, Comparable<Task> {
         isComplete = t.getIsComplete();
         duedate = t.getDueDate();
         duetime = t.getDueTime();
+        address = t.getAddress();
     }
 
     public int compareTo(Task compareTask) {

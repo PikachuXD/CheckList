@@ -183,7 +183,7 @@ public class OneList_Activity extends AppCompatActivity {
                         taskList.remove(getIndexOfTaskList(taskList, original));
                         tAdapter.notifyDataSetChanged();
                     } else {
-                        completedList.remove(getIndexOfTaskList(taskList, original));
+                        completedList.remove(getIndexOfTaskList(completedList, original));
                         cAdapter.notifyDataSetChanged();
                     }
                 }

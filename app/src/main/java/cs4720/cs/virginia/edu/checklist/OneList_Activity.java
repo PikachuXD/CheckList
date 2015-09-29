@@ -53,26 +53,37 @@ public class OneList_Activity extends AppCompatActivity {
             while ((ch = fis.read()) != -1) {
                 builder.append((char) ch);
             }
-            String[] fromFile = builder.toString().trim().split(Pattern.quote("^"));
+            String fromFile = builder.toString().trim();
             Log.i("OneListActivity", builder.toString());
-            for (int i = 0; i < fromFile.length;i++) Log.i("OneListActivityFile", fromFile[i]);
-            int index = 1;
-            Log.i("Firstline", fromFile[0]);
-            int sizeOfTaskList = Integer.parseInt(fromFile[0]);
 
-            while (index < sizeOfTaskList * 4) {
-                Task t = new Task(fromFile[index], fromFile[index+1], fromFile[index+2], fromFile[index+3]);
-                t.setIsComplete(false);
-                taskList.add(t);
-                index+= 4;
+            if (fromFile.contains("<")) {
+                String[] staskList = fromFile.split(Pattern.quote("<"));
+                for (String s : staskList) {
+                    String[] taskinfo = s.split(Pattern.quote("*"));
+                    Task tmp = new Task(taskinfo[0], taskinfo[1], taskinfo[2], taskinfo[3], Boolean.parseBoolean(taskinfo[4]));
+                    Log.i("Sup dude", tmp.asString());
+                    if (tmp.getIsComplete()) {
+                        completedList.add(tmp);
+                        cAdapter.notifyDataSetChanged();
+                    } else {
+                        taskList.add(tmp);
+                        tAdapter.notifyDataSetChanged();
+                    }
+                }
+            } else if (fromFile.contains("*")){
+                String[] taskinfo = fromFile.split(Pattern.quote("*"));
+                Task tmp = new Task (taskinfo[0], taskinfo[1], taskinfo[2], taskinfo[3], Boolean.parseBoolean(taskinfo[4]));
+                Log.i("Sup dude", tmp.asString());
+                if (tmp.getIsComplete()) {
+                    completedList.add(tmp);
+                    cAdapter.notifyDataSetChanged();
+                } else {
+                    taskList.add(tmp);
+                    tAdapter.notifyDataSetChanged();
+                }
             }
-            Log.i("Complete tasks", "Output complete");
-            while (index < fromFile.length) {
-                Task t = new Task(fromFile[index], fromFile[index+1], fromFile[index+2], fromFile[index+3]);
-                t.setIsComplete(true);
-                completedList.add(t);
-                index+= 4;
-            }
+
+
         } catch(Exception e) {
             Log.e("No file to store in", e.getMessage());
         }
@@ -94,14 +105,24 @@ public class OneList_Activity extends AppCompatActivity {
 
         String FILENAME = "oneliststore.txt";
         String toFile = "";
-        toFile += Integer.toString(taskList.size()) + "^";
-        for (Task t : taskList) {
-            toFile += t.getName() + "^" + t.getDueDate() + "^" + t.getDueTime() + "^" + t.getAddress() + "^";
+        ArrayList<Task> fullList = new ArrayList<Task>();
+        fullList.addAll(taskList);
+        fullList.addAll(completedList);
+        Task t;
+
+        //get the tasklist
+        if (fullList.size() > 1) {
+            for (int i = 0; i < fullList.size() - 1; i++) {
+                t = fullList.get(i);
+                toFile += t.getName() + "*" + t.getDueDate() + "*" + t.getDueTime() + "*" + t.getAddress() + "*" + t.getIsComplete() + "<";
+            }
+            t = fullList.get(fullList.size() - 1);
+            toFile += t.getName() + "*" + t.getDueDate() + "*" + t.getDueTime() + "*" + t.getAddress() + "*" + t.getIsComplete();
+        } else if (fullList.size() == 1) {
+            t = fullList.get(0);
+            toFile += t.getName() + "*" + t.getDueDate() + "*" + t.getDueTime() + "*" + t.getAddress() + "*" + t.getIsComplete();
         }
-        toFile += Integer.toString(completedList.size()) + "^";
-        for (Task t : completedList) {
-            toFile += t.getName() + "^" + t.getDueDate() + "^" + t.getDueTime() + "^" + t.getAddress() + "^";
-        }
+
         try {
             FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fos.write(toFile.getBytes());
@@ -142,8 +163,6 @@ public class OneList_Activity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        original = data.getParcelableExtra("original");
-        passed = data.getParcelableExtra("current");
         switch(requestCode) {
             case (0) : {
                 if (resultCode == Activity.RESULT_OK) {
@@ -155,6 +174,16 @@ public class OneList_Activity extends AppCompatActivity {
                         tAdapter.notifyDataSetChanged();
                     } else {
                         completedList.set(getIndexOfTaskList(completedList, original), passed);
+                        cAdapter.notifyDataSetChanged();
+                    }
+                }
+                if (resultCode == 9000) {
+                    original = data.getParcelableExtra("original");
+                    if (!original.getIsComplete()) {
+                        taskList.remove(getIndexOfTaskList(taskList, original));
+                        tAdapter.notifyDataSetChanged();
+                    } else {
+                        completedList.remove(getIndexOfTaskList(taskList, original));
                         cAdapter.notifyDataSetChanged();
                     }
                 }
@@ -180,8 +209,10 @@ public class OneList_Activity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Task tmp = new Task(inputField.getText().toString());
-                        taskList.add(tmp);
-                        tAdapter.notifyDataSetChanged();
+                        if ((getIndexOfTaskList(taskList, tmp) == -1) && (getIndexOfTaskList(completedList, tmp) == -1)) {
+                            taskList.add(tmp);
+                            tAdapter.notifyDataSetChanged();
+                        }
                     }
                 });
 

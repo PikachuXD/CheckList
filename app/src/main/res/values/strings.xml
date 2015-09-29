@@ -46,6 +46,8 @@
         <item>50</item>
         <item>55</item>
     </string-array>
+
+    <string name="remove">Remove item</string>
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_to_be_complete_header">ToBeCompleteHeader</string>

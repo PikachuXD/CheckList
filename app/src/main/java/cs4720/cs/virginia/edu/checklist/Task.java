@@ -28,11 +28,12 @@ public class Task implements Parcelable, Comparable<Task> {
         duetime = "";
     }
 
-    public Task(String name, String duedate, String duetime, String address) {
+    public Task(String name, String duedate, String duetime, String address, Boolean isComplete) {
         this.name = name;
         this.duedate = duedate;
         this.duetime = duetime;
         this.address = address;
+        this.isComplete = isComplete;
     }
 
     public Task(Parcel in) {
@@ -41,6 +42,7 @@ public class Task implements Parcelable, Comparable<Task> {
         duetime = in.readString();
         isComplete = in.readByte() != 0;
         address = in.readString();
+        checked = in.readByte() != 0;
     }
 
     public int describeContents() {
@@ -81,6 +83,7 @@ public class Task implements Parcelable, Comparable<Task> {
         out.writeString(duetime);
         out.writeByte((byte) (isComplete ? 1 : 0));
         out.writeString(address);
+        out.writeByte((byte) (checked ? 1 : 0));
     }
 
     public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
@@ -108,6 +111,10 @@ public class Task implements Parcelable, Comparable<Task> {
 
         return this.getName().compareTo(compto);
 
+    }
+
+    public String asString() {
+        return "Name: " + name + " Due Date: " + duedate + " Due time: " + duetime + " Address: " + address;
     }
 
 }

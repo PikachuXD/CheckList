@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -142,6 +143,19 @@ public class OneList_Activity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        //int orientation = this.getResources().getConfiguration().orientation;
+
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.d("Portrait","PPPPPPPPPPPPPPPPP");
+        } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d("Landscape ","LLLLLLLLLLLLLLLLLLLL");
+        }
+
+    }
     //saves instance state so the list isn't destroyed upon calling the one task activity
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

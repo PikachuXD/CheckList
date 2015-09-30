@@ -52,4 +52,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_to_be_complete_header">ToBeCompleteHeader</string>
     <string name="title_activity_one_task">Edit One Item</string>
+    <string name="title_activity_activity_one_list_landscape">activity_one_list_landscape</string>
+    <string name="action_settings">Settings</string>
 </resources>

@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cs4720.cs.virginia.edu.checklist" >
 
+    <uses-sdk
+        android:maxSdkVersion="23"
+        android:minSdkVersion="23"
+        android:targetSdkVersion="23" />
+
     <!--
      The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but are recommended.
@@ -9,9 +14,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-sdk android:minSdkVersion="23"
-        android:targetSdkVersion="23"
-        android:maxSdkVersion="23" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,8 +26,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".OneList_Activity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,6 +46,7 @@
         <activity
             android:name=".OneTaskActivity"
             android:label="@string/title_activity_one_task"
+            android:configChanges="orientation|screenSize"
             android:parentActivityName=".OneList_Activity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

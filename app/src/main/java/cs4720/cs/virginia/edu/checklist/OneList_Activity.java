@@ -280,6 +280,7 @@ public class OneList_Activity extends AppCompatActivity {
 
     }
 
+    //helper method
     private int getIndexOfTaskList(ArrayList<Task> tl, Task t) {
         for (int i = 0; i < tl.size(); i++) {
             if (tl.get(i).getName().equals(t.getName())) return i;

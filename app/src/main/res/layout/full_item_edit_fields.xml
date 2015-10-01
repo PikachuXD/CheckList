@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:layout="@layout/edit_one_item_name"
+        android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_name"
+        android:id="@+id/namefrag" />
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        tools:layout="@layout/edit_one_item_date"
+        android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_date"
+        android:id="@+id/datetimefrag"
+        />
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        tools:layout="@layout/edit_one_item_loc"
+        android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_loc"
+        android:id="@+id/locfrag"
+        />
+</LinearLayout>

@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -9,41 +9,20 @@
 
 
     <fragment
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:name="cs4720.cs.virginia.edu.checklist.ToBeCompleteHeader"
+        android:name="cs4720.cs.virginia.edu.checklist.tdlistFragment"
         android:id="@+id/fragment"
-        tools:layout="@layout/activity_to_be_complete_header" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        tools:layout="@layout/tdlist" />
+
     <fragment
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/tbd_list"
-        android:name="cs4720.cs.virginia.edu.checklist.OneListFragment"
-        tools:layout="@layout/listfragment_main" android:layout_width="match_parent"
-        android:layout_height="188dp" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
-    <fragment
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:name="cs4720.cs.virginia.edu.checklist.CompletedListHeaderFragment"
+        android:name="cs4720.cs.virginia.edu.checklist.clistFragment"
         android:id="@+id/fragment3"
-        tools:layout="@layout/fragment_completed_list_header"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="cs4720.cs.virginia.edu.checklist.CompListFragment"
-        tools:layout="@layout/listfragment_main"
-        android:id="@+id/completed_list" />
+        tools:layout="@layout/clist"/>
 
 
 </LinearLayout>

@@ -150,6 +150,7 @@ public class OneList_Activity extends AppCompatActivity {
         //int orientation = this.getResources().getConfiguration().orientation;
 
         if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+
             Log.d("Portrait","PPPPPPPPPPPPPPPPP");
         } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Log.d("Landscape ","LLLLLLLLLLLLLLLLLLLL");

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -45,7 +46,17 @@ public class OneList_Activity extends AppCompatActivity {
 
         listView.setAdapter(tAdapter);
         completeListView.setAdapter(cAdapter);
-
+        if (savedInstanceState != null) {
+            for(Parcelable p : savedInstanceState.getParcelableArray("tList")) {
+                taskList.add((Task) p);
+            }
+            tAdapter.notifyDataSetChanged();
+            for(Parcelable p : savedInstanceState.getParcelableArray("cList")) {
+                completedList.add((Task) p);
+            }
+            cAdapter.notifyDataSetChanged();
+            return;
+        }
         String FILENAME = "oneliststore.txt";
         try {
             FileInputStream fis = openFileInput(FILENAME);
@@ -135,6 +146,10 @@ public class OneList_Activity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+    @Override
     protected void onRestart() {super.onRestart(); }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,12 +161,12 @@ public class OneList_Activity extends AppCompatActivity {
     //saves instance state so the list isn't destroyed upon calling the one task activity
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-
+        savedInstanceState.putParcelableArrayList("tList", taskList);
+        savedInstanceState.putParcelableArrayList("cList", completedList);
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
 
-        savedInstanceState.putParcelableArrayList("tList", taskList);
-        savedInstanceState.putParcelableArrayList("cList", completedList);
+
     }
 
     @Override

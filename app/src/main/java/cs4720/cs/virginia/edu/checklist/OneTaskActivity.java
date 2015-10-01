@@ -115,6 +115,7 @@ public class OneTaskActivity extends AppCompatActivity implements
                 finish();
                 return true;
             default:
+                current.setName(nameField.getText().toString());
                 intent.putExtra("current", (Parcelable) current);
                 intent.putExtra("original", (Parcelable) original);
                 setResult(RESULT_OK, intent);
@@ -238,9 +239,6 @@ public class OneTaskActivity extends AppCompatActivity implements
     }
 
     //editing functions
-    public void editName(View view) {
-        current.setName(nameField.getText().toString());
-    }
 
     public void editDate(View view) {
 

@@ -77,11 +77,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         holder.cBox.setTag(task);
         holder.edit.setTag(task);
         holder.cBox.setText(task.getName());
-        if (task.getDueTime().equals("") || task.getDueDate().equals("")) {
-            holder.datetime.setText("");
-        } else {
-            holder.datetime.setText(task.getDueDate() + "@" + task.getDueTime());
-        }
+        holder.datetime.setText(task.getDueString());
         holder.cBox.setChecked(task.getChecked());
 
         return convertView;

@@ -176,6 +176,8 @@ public class OneList_Activity extends AppCompatActivity {
         this.taskList = savedInstanceState.getParcelableArrayList("tList");
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

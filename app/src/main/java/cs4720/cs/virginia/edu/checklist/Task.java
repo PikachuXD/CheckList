@@ -5,7 +5,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 
 /**
  * Rock Beom Kim rk5dy
@@ -24,8 +27,10 @@ public class Task implements Parcelable, Comparable<Task> {
         checked = false;
         isComplete = false;
         address = "";
-        duedate = "";
         duetime = "";
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        duedate = sdf.format(date);
     }
 
     public Task(String name, String duedate, String duetime, String address, Boolean isComplete) {
@@ -117,4 +122,15 @@ public class Task implements Parcelable, Comparable<Task> {
         return "Name: " + name + " Due Date: " + duedate + " Due time: " + duetime + " Address: " + address;
     }
 
+    public String getDueString() {
+        if (duedate.equals("") || duetime.equals("")) {
+            return "";
+        } else if (duedate.equals("") && !duetime.equals("")) {
+            return duetime;
+        } else if (!duedate.equals("") && duetime.equals("")) {
+            return duedate;
+        } else {
+            return duedate + "@" + duetime;
+        }
+    }
 }

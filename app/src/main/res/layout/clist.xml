@@ -19,5 +19,6 @@
         android:layout_height="wrap_content"
         android:name="cs4720.cs.virginia.edu.checklist.CompListFragment"
         tools:layout="@layout/listfragment_main"
-        android:id="@+id/completed_list" />
+        android:id="@+id/completed_list"
+        android:layout_marginLeft="5dp" />
 </LinearLayout>

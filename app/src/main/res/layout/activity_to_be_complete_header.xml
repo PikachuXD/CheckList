@@ -4,22 +4,41 @@
    >
 
     <Button
-        style="?android:attr/buttonStyleSmall"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set as Complete"
+        android:text="↓ Move to Completed ↓"
+        android:background="#4fd5d6"
+        android:textStyle="bold"
+        android:elevation="10dp"
+        android:textColor="#FFFFFF"
+        android:shadowColor="#000000"
+        android:shadowRadius="8"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:typeface="serif"
         android:id="@+id/set_as_complete_button"
         android:onClick="setAsComplete"
+        android:layout_marginTop="210dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="14dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Task List"
+        android:text="Remaining To-Dos"
+        android:textSize="26sp"
+        android:typeface="serif"
+        android:textStyle="bold"
+        android:textColor="#c63d45"
         android:id="@+id/textView3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="59dp"
         android:layout_alignBottom="@+id/set_as_complete_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

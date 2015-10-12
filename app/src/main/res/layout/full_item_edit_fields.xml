@@ -3,21 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
     <fragment
         android:layout_width="match_parent"
         android:layout_height="70dp"
         tools:layout="@layout/edit_one_item_name"
         android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_name"
-        android:id="@+id/namefrag" />
+        android:id="@+id/namefrag"
+        android:layout_weight="0.06" />
 
     <fragment
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="70dp"
         tools:layout="@layout/edit_one_item_date"
         android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_date"
         android:id="@+id/datetimefrag"
-        />
+        android:layout_weight="0.06" />
 
     <fragment
         android:layout_width="match_parent"
@@ -25,5 +27,5 @@
         tools:layout="@layout/edit_one_item_loc"
         android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_loc"
         android:id="@+id/locfrag"
-        />
+        android:layout_weight="0.26" />
 </LinearLayout>

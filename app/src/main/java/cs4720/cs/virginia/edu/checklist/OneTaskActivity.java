@@ -250,7 +250,7 @@ public class OneTaskActivity extends AppCompatActivity implements
     public void editDate(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Pick the due date");
+        builder.setTitle("Select a due date");
         final DatePicker datePicker = new DatePicker(this);
         builder.setView(datePicker)
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
@@ -271,7 +271,7 @@ public class OneTaskActivity extends AppCompatActivity implements
         layout.setOrientation(LinearLayout.VERTICAL);
 
         //time picking
-        builder.setTitle("Pick the due time");
+        builder.setTitle("Select a due time");
         final NumberPicker hours = new NumberPicker(this);
         final NumberPicker minutes = new NumberPicker(this);
         hours.setMinValue(1);

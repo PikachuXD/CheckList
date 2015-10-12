@@ -219,8 +219,8 @@ public class OneList_Activity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add_task:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Add a task");
-                builder.setMessage("What do you want to do?");
+                builder.setTitle("Add a to-do...");
+                builder.setMessage("What would you like to add?");
                 final EditText inputField = new EditText(this);
                 builder.setView(inputField);
                 builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {

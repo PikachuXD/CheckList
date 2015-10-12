@@ -7,33 +7,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkBox"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="CheckBox"
+        android:typeface="serif"
+        android:textStyle="italic"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:text="CheckBox"/>
+        android:layout_toLeftOf="@+id/edit_button"
+        android:layout_toStartOf="@+id/edit_button"
+        android:checked="false"
+        android:layout_alignBottom="@+id/edit_button" />
 
 
 
     <Button
-        style="?android:attr/buttonStyleSmall"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit"
+        android:text="...Edit"
+        android:typeface="serif"
+        android:textStyle="bold"
         android:id="@+id/edit_button"
-        android:layout_alignBottom="@+id/checkBox"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text=""
+        android:typeface="serif"
         android:id="@+id/datetimeoftask"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/checkBox"
         android:layout_toLeftOf="@+id/edit_button"
-        android:layout_toStartOf="@+id/edit_button" />
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

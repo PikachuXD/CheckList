@@ -12,6 +12,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/complist_view"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp" />
 </RelativeLayout>

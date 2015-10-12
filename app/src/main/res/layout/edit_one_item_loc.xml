@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="wrap_content" android:layout_height="match_parent">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Location"
+        android:text="Location"
+        android:typeface="serif"
         android:id="@+id/textView4"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
+        android:typeface="serif"
+        android:textSize="30sp"
         android:ems="10"
         android:id="@+id/edit_loc"
-        android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
         android:text="Submit"
+        android:background="#4fd5d6"
+        android:textStyle="bold"
+        android:elevation="10dp"
+        android:textColor="#FFFFFF"
+        android:shadowColor="#000000"
+        android:shadowRadius="8"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:typeface="serif"
         android:id="@+id/edit_loc_btn"
         android:onClick="submitloc"
-        android:layout_alignTop="@+id/clearloc"
+        android:layout_below="@+id/textView4"
         android:layout_toLeftOf="@+id/clearloc"
-        android:layout_toStartOf="@+id/clearloc" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clear"
-        android:id="@+id/clearloc"
-        android:onClick="clearloc"
-        android:layout_alignBottom="@+id/edit_loc"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toEndOf="@+id/edit_loc" />
 
     <View
         android:layout_width="match_parent"
@@ -50,6 +51,30 @@
         android:id="@+id/view"
         android:layout_alignBottom="@+id/edit_loc_btn"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edit_loc" />
+
+    <ImageButton
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:id="@+id/clearloc"
+        android:background="#4fd5d6"
+        android:textStyle="bold"
+        android:elevation="10dp"
+        android:textColor="#FFFFFF"
+        android:shadowColor="#000000"
+        android:shadowRadius="8"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:typeface="serif"
+        android:src="@drawable/abc_ic_clear_mtrl_alpha"
+        android:onClick="clearloc"
+        android:layout_alignTop="@+id/edit_loc_btn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="-2dp" />
 
 </RelativeLayout>

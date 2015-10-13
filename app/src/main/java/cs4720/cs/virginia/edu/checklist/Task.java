@@ -130,7 +130,7 @@ public class Task implements Parcelable, Comparable<Task> {
         } else if (!duedate.equals("") && duetime.equals("")) {
             return duedate;
         } else {
-            return duedate + " @ " + duetime;
+            return "Due on " + duedate + " at " + duetime;
         }
     }
 }

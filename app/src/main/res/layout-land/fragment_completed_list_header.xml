@@ -17,7 +17,7 @@
         android:layout_alignBottom="@+id/set_as_incomplete_button"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="45dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginStart="54dp" />
 
     <Button
@@ -39,6 +39,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="18dp" />
+        android:layout_marginRight="23dp"
+        android:layout_marginBottom="14dp" />
 
 </RelativeLayout>

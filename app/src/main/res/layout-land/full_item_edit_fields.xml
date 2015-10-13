@@ -19,7 +19,7 @@
         tools:layout="@layout/edit_one_item_date"
         android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_date"
         android:id="@+id/datetimefrag"
-        android:layout_weight="0.2" />
+        android:layout_weight="0.06" />
 
     <fragment
         android:layout_width="match_parent"

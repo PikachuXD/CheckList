@@ -218,8 +218,8 @@ public class OneList_Activity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.sort_task_list_button:
                 AlertDialog.Builder build2 = new AlertDialog.Builder(this);
-                build2.setTitle("Sort by name?");
-                build2.setMessage("Yes or no?");
+                build2.setTitle("Sort To-Do List alphabetically?");
+                build2.setMessage("Touch 'SORT' to sort");
                 build2.setPositiveButton("Sort", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

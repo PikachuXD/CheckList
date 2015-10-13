@@ -29,6 +29,17 @@
         android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_full"
         android:id="@+id/namefrag" />
 
+    <ImageButton
+        android:layout_width="75dp"
+        android:layout_height="65dp"
+        android:id="@+id/imageButton"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/remove"
+        android:elevation="25dp"
+        android:layout_marginBottom="25dp"
+        android:layout_weight="0.01"
+        android:cropToPadding="false"
+        android:onClick="removeTask"/>
 
 </LinearLayout>
 

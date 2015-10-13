@@ -11,7 +11,7 @@
 
     <fragment
         android:layout_height="0dp"
-        android:layout_weight="0.84"
+        android:layout_weight="1.5"
         android:layout_width="match_parent"
         android:name="cs4720.cs.virginia.edu.checklist.tdlistFragment"
         android:id="@+id/fragment"
@@ -19,7 +19,7 @@
 
     <fragment
         android:layout_height="0dp"
-        android:layout_weight="0.42"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:name="cs4720.cs.virginia.edu.checklist.clistFragment"
         android:id="@+id/fragment3"
@@ -34,7 +34,8 @@
         android:elevation="25dp"
         android:layout_marginTop="8dp"
         android:layout_weight="0.01"
-        android:cropToPadding="false" />
+        android:cropToPadding="false"
+        android:onClick="addTask"/>
 
 
 </LinearLayout>

@@ -210,34 +210,12 @@ public class OneList_Activity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
-            case R.id.action_add_task:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Add a to-do...");
-                builder.setMessage("What would you like to add?");
-                final EditText inputField = new EditText(this);
-                builder.setView(inputField);
-                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Task tmp = new Task(inputField.getText().toString());
-                        if ((getIndexOfTaskList(taskList, tmp) == -1) && (getIndexOfTaskList(completedList, tmp) == -1)) {
-                            taskList.add(tmp);
-                            tAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-
-                builder.setNegativeButton("Cancel",null);
-
-                builder.create().show();
-                return true;
             case R.id.sort_task_list_button:
                 AlertDialog.Builder build2 = new AlertDialog.Builder(this);
                 build2.setTitle("Sort by name?");
@@ -307,5 +285,27 @@ public class OneList_Activity extends AppCompatActivity {
         cAdapter.notifyDataSetChanged();
         taskList.addAll(tmp);
         tAdapter.notifyDataSetChanged();
+    }
+
+    public void addTask(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add a to-do...");
+        builder.setMessage("What would you like to add?");
+        final EditText inputField = new EditText(this);
+        builder.setView(inputField);
+        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Task tmp = new Task(inputField.getText().toString());
+                if ((getIndexOfTaskList(taskList, tmp) == -1) && (getIndexOfTaskList(completedList, tmp) == -1)) {
+                    taskList.add(tmp);
+                    tAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        builder.setNegativeButton("Cancel",null);
+
+        builder.create().show();
     }
 }

@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -116,11 +117,6 @@ public class OneTaskActivity extends AppCompatActivity implements
         // as you specify a parent activity in AndroidManifest.xml.
         Intent intent = new Intent();
         switch (item.getItemId()) {
-            case R.id.remove:
-                intent.putExtra("original", (Parcelable) original);
-                setResult(9000, intent);
-                finish();
-                return true;
             default:
                 current.setName(nameField.getText().toString());
                 intent.putExtra("current", (Parcelable) current);
@@ -256,7 +252,7 @@ public class OneTaskActivity extends AppCompatActivity implements
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        String a = Integer.toString(datePicker.getYear()) + "/" + Integer.toString(datePicker.getMonth() + 1) + "/" + Integer.toString(datePicker.getDayOfMonth());
+                        String a =  Integer.toString(datePicker.getMonth() + 1) + "/" + Integer.toString(datePicker.getDayOfMonth())+ "/" + Integer.toString(datePicker.getYear());
                         current.setDuedate(a);
                         dateView.setText(a);
                     }
@@ -268,33 +264,21 @@ public class OneTaskActivity extends AppCompatActivity implements
     public void editTime(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
 
         //time picking
         builder.setTitle("Select a due time");
-        final NumberPicker hours = new NumberPicker(this);
+        /*final NumberPicker hours = new NumberPicker(this);
         final NumberPicker minutes = new NumberPicker(this);
         hours.setMinValue(1);
         hours.setMaxValue(24);
         hours.setWrapSelectorWheel(false);
 
-        final TextView selectHours = new TextView(this);
-        selectHours.setText("Hour (in military time)");
-        final TextView selectMins = new TextView(this);
-        selectMins.setText("Minutes");
-
-        String[] minsof5 = new String[12];
-        for (int i = 0; i < 12; i++) {
-            minsof5[i] = Integer.toString(i*5);
-        }
         minutes.setMinValue(0);
-        minutes.setMaxValue(minsof5.length - 1);
+        minutes.setMaxValue(60);
         hours.setWrapSelectorWheel(false);
-        minutes.setDisplayedValues(minsof5);
         //making the layout
-        layout.addView(selectHours);
         layout.addView(hours);
-        layout.addView(selectMins);
         layout.addView(minutes);
         builder.setView(layout)
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
@@ -313,6 +297,22 @@ public class OneTaskActivity extends AppCompatActivity implements
                     timeView.setText(a);
                 }
     })
+                .setNegativeButton("Cancel", null).show();*/
+        final TimePicker tp = new TimePicker(this);
+        layout.addView(tp);
+        builder.setView(layout)
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        String minuteString = Integer.toString(tp.getCurrentMinute());
+                        if (tp.getCurrentMinute() < 10) {
+                            minuteString = "0" + minuteString;
+                        }
+                        String a = Integer.toString(tp.getCurrentHour()) + ":" + minuteString;
+                        current.setDuetime(a);
+                        timeView.setText(a);
+                    }
+                })
                 .setNegativeButton("Cancel", null).show();
         Log.i("OneTask Activity", "The dialog should pop up");
     }
@@ -388,4 +388,10 @@ public class OneTaskActivity extends AppCompatActivity implements
         current.setAddress("");
     }
 
+    public void removeTask(View view) {
+        Intent intent = new Intent();
+        intent.putExtra("original", (Parcelable) original);
+        setResult(9000, intent);
+        finish();
+    }
 }

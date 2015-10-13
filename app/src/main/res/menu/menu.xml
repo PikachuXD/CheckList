@@ -1,11 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".OneList">
-    <item android:id="@+id/action_add_task"
-        app:showAsAction="always"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="Add Task" />
+
     <item android:id="@+id/sort_task_list_button"
         android:title="@string/sort_tasks"
+        android:icon="@drawable/sort_az_descending"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

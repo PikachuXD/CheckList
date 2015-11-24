@@ -14,10 +14,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -34,6 +35,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="myStep.com"
+                    android:scheme="myrest" />
+            </intent-filter>
         </activity>
 
         <meta-data
@@ -45,13 +56,36 @@
 
         <activity
             android:name=".OneTaskActivity"
-            android:label="@string/title_activity_one_task"
             android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_one_task"
             android:parentActivityName=".OneList_Activity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cs4720.cs.virginia.edu.checklist.OneList_Activity" />
         </activity>
+
+        <activity
+            android:name=".Dropbox_Login_Activity"
+            android:label="Dropbox Stuff"
+            android:parentActivityName=".OneList_Activity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cs4720.cs.virginia.edu.checklist.OneList_Activity" />
+        </activity>
+
+        <activity
+            android:name="com.dropbox.client2.android.AuthActivity"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboard">
+            <intent-filter>
+                <!-- Change this to be db- followed by your app key -->
+                <data android:scheme="db-lssx2ezdqrffr3d" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

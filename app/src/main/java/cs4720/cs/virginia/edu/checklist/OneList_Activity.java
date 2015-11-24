@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -34,11 +35,12 @@ public class OneList_Activity extends AppCompatActivity {
     TaskAdapter cAdapter = null;
     Task passed;
     Task original;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_list);
-
         ListView listView = (ListView)findViewById(R.id.listView);
         ListView completeListView = (ListView) findViewById(R.id.complist_view);
         tAdapter = new TaskAdapter(this, R.layout.listitem, taskList);
@@ -48,10 +50,14 @@ public class OneList_Activity extends AppCompatActivity {
         completeListView.setAdapter(cAdapter);
         if (savedInstanceState != null) {
             for(Parcelable p : savedInstanceState.getParcelableArray("tList")) {
+                Task tmp = (Task) p;
+                Log.i("testIncomplete: ", tmp.getName());
                 taskList.add((Task) p);
             }
             tAdapter.notifyDataSetChanged();
             for(Parcelable p : savedInstanceState.getParcelableArray("cList")) {
+                Task tmp = (Task) p;
+                Log.i("testCompleted: ", tmp.getName());
                 completedList.add((Task) p);
             }
             cAdapter.notifyDataSetChanged();
@@ -116,6 +122,19 @@ public class OneList_Activity extends AppCompatActivity {
         super.onStop();
 
         String FILENAME = "oneliststore.txt";
+        String toFile = toFileString();
+
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            fos.write(toFile.getBytes());
+            fos.close();
+        } catch (Exception e) {
+            Log.e("Storage", e.getMessage());
+        }
+        Log.i("onStop", toFile);
+    }
+
+    private String toFileString() {
         String toFile = "";
         ArrayList<Task> fullList = new ArrayList<Task>();
         fullList.addAll(taskList);
@@ -135,14 +154,7 @@ public class OneList_Activity extends AppCompatActivity {
             toFile += t.getName() + "*" + t.getDueDate() + "*" + t.getDueTime() + "*" + t.getAddress() + "*" + t.getIsComplete();
         }
 
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            fos.write(toFile.getBytes());
-            fos.close();
-        } catch (Exception e) {
-            Log.e("Storage", e.getMessage());
-        }
-        Log.i("onStop", toFile);
+        return toFile;
     }
 
     @Override
@@ -231,6 +243,12 @@ public class OneList_Activity extends AppCompatActivity {
                 });
                 build2.setNegativeButton("Cancel", null);
                 build2.create().show();
+                return true;
+            case R.id.share_on_dropbox:
+                Intent i = new Intent(this, Dropbox_Login_Activity.class);
+                i.putExtra("toFile", toFileString());
+                startActivity(i);
+
                 return true;
             default:
                 return false;

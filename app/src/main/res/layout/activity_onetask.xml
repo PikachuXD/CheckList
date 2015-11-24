@@ -23,23 +23,23 @@
 
     <fragment
         android:layout_width="match_parent"
-        android:layout_weight="1.91"
+        android:layout_weight="3.38"
         android:layout_height="0dp"
         tools:layout="@layout/full_item_edit_fields"
         android:name="cs4720.cs.virginia.edu.checklist.edit_one_item_full"
         android:id="@+id/namefrag" />
 
     <ImageButton
-        android:layout_width="75dp"
-        android:layout_height="65dp"
+        android:layout_width="142dp"
+        android:layout_height="112dp"
         android:id="@+id/imageButton"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/remove"
         android:elevation="25dp"
-        android:layout_marginBottom="25dp"
-        android:layout_weight="0.01"
+        android:layout_marginBottom="5dp"
         android:cropToPadding="false"
-        android:onClick="removeTask"/>
+        android:onClick="removeTask"
+        android:background="#00000000" />
 
 </LinearLayout>
 

@@ -26,14 +26,14 @@
         tools:layout="@layout/clist"/>
 
     <ImageButton
-        android:layout_width="75dp"
+        android:layout_width="88dp"
         android:layout_height="65dp"
         android:id="@+id/imageButton"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/add"
         android:elevation="25dp"
         android:layout_marginTop="8dp"
-        android:layout_weight="0.01"
+        android:layout_weight="0.05"
         android:cropToPadding="false"
         android:onClick="addTask"/>
 

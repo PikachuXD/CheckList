@@ -4,10 +4,11 @@
 
     <item android:id="@+id/sort_task_list_button"
         android:title="@string/sort_tasks"
-        android:icon="@drawable/sort_az_descending"
-        android:orderInCategory="100" app:showAsAction="never" />
+        android:icon="@android:drawable/ic_menu_sort_alphabetically"
+        android:orderInCategory="100" app:showAsAction="always" />
 
     <item android:id="@+id/share_on_dropbox"
         android:title="Upload to Dropbox"
-        android:orderInCategory="200" app:showAsAction="never" />
+        android:icon="@android:drawable/ic_menu_save"
+        android:orderInCategory="200" app:showAsAction="always" />
 </menu>

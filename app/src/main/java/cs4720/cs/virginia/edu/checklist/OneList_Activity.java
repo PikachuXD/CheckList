@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -15,7 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
+
+import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.android.AndroidAuthSession;
+import com.dropbox.client2.session.AppKeyPair;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,14 +35,23 @@ import java.util.regex.Pattern;
  */
 public class OneList_Activity extends AppCompatActivity {
 
+    private static final String appKey = "lssx2ezdqrffr3d";
+    private static final String appSecret = "ueaqr31nkajxb9j";
+
     ArrayList<Task> taskList = new ArrayList<Task>();
     ArrayList<Task> completedList = new ArrayList<Task>();
     TaskAdapter tAdapter = null;
     TaskAdapter cAdapter = null;
     Task passed;
     Task original;
+    Context context = this;
+    //dropbox info
+    private String fileName;
+    private String fileContents;
+    private String FILE_DIR = "/SavedCheckLists/";
+    private String accessToken;
 
-
+    private DropboxAPI<AndroidAuthSession> mDBApi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,34 +63,18 @@ public class OneList_Activity extends AppCompatActivity {
 
         listView.setAdapter(tAdapter);
         completeListView.setAdapter(cAdapter);
-        if (savedInstanceState != null) {
-            for(Parcelable p : savedInstanceState.getParcelableArray("tList")) {
-                Task tmp = (Task) p;
-                Log.i("testIncomplete: ", tmp.getName());
-                taskList.add((Task) p);
-            }
-            tAdapter.notifyDataSetChanged();
-            for(Parcelable p : savedInstanceState.getParcelableArray("cList")) {
-                Task tmp = (Task) p;
-                Log.i("testCompleted: ", tmp.getName());
-                completedList.add((Task) p);
-            }
-            cAdapter.notifyDataSetChanged();
-            return;
-        }
-        String FILENAME = "oneliststore.txt";
-        try {
-            FileInputStream fis = openFileInput(FILENAME);
-            StringBuilder builder = new StringBuilder();
-            int ch;
-            while ((ch = fis.read()) != -1) {
-                builder.append((char) ch);
-            }
-            String fromFile = builder.toString().trim();
-            Log.i("OneListActivity", builder.toString());
 
-            if (fromFile.contains("<")) {
-                String[] staskList = fromFile.split(Pattern.quote("<"));
+        Intent intent = getIntent();
+        if (intent != null) {
+            fileName = intent.getStringExtra("fileName");
+            accessToken = intent.getStringExtra("accessToken");
+            fileContents = intent.getStringExtra("fileContents");
+            Log.i("File name", fileName);
+            Log.i("OneListContent ", fileContents);
+            Log.i("Access token", accessToken);
+            setTitle(fileName.split(Pattern.quote("."))[0]);
+            if (fileContents.contains("<")) {
+                String[] staskList = fileContents.split(Pattern.quote("<"));
                 for (String s : staskList) {
                     String[] taskinfo = s.split(Pattern.quote("*"));
                     Task tmp = new Task(taskinfo[0], taskinfo[1], taskinfo[2], taskinfo[3], Boolean.parseBoolean(taskinfo[4]));
@@ -88,8 +87,8 @@ public class OneList_Activity extends AppCompatActivity {
                         tAdapter.notifyDataSetChanged();
                     }
                 }
-            } else if (fromFile.contains("*")){
-                String[] taskinfo = fromFile.split(Pattern.quote("*"));
+            } else if (fileContents.contains("*")){
+                String[] taskinfo = fileContents.split(Pattern.quote("*"));
                 Task tmp = new Task (taskinfo[0], taskinfo[1], taskinfo[2], taskinfo[3], Boolean.parseBoolean(taskinfo[4]));
                 Log.i("Sup dude", tmp.asString());
                 if (tmp.getIsComplete()) {
@@ -100,11 +99,13 @@ public class OneList_Activity extends AppCompatActivity {
                     tAdapter.notifyDataSetChanged();
                 }
             }
-
-
-        } catch(Exception e) {
-            Log.e("No file to store in", e.getMessage());
         }
+
+        AndroidAuthSession session;
+        AppKeyPair appKeys = new AppKeyPair(appKey, appSecret);
+        session = new AndroidAuthSession(appKeys);
+        session.setOAuth2AccessToken(accessToken);
+        mDBApi = new DropboxAPI<AndroidAuthSession>(session);
 
     }
 
@@ -120,18 +121,6 @@ public class OneList_Activity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
-        String FILENAME = "oneliststore.txt";
-        String toFile = toFileString();
-
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            fos.write(toFile.getBytes());
-            fos.close();
-        } catch (Exception e) {
-            Log.e("Storage", e.getMessage());
-        }
-        Log.i("onStop", toFile);
     }
 
     private String toFileString() {
@@ -245,10 +234,24 @@ public class OneList_Activity extends AppCompatActivity {
                 build2.create().show();
                 return true;
             case R.id.share_on_dropbox:
-                Intent i = new Intent(this, Dropbox_Login_Activity.class);
-                i.putExtra("toFile", toFileString());
-                startActivity(i);
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                String[] beforeTxt = fileName.split(Pattern.quote("."));
+                builder.setTitle("Save the List");
+                builder.setMessage("Input name of list");
+                final EditText inputField = new EditText(this);
+                inputField.setText(beforeTxt[0]);
+                builder.setView(inputField);
+                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String n = inputField.getText().toString();
+                        UploadFileToDropbox upload = new UploadFileToDropbox(context, mDBApi,
+                                FILE_DIR, toFileString(), n);
+                        upload.execute();
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.create().show();
                 return true;
             default:
                 return false;

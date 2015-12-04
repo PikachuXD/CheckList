@@ -50,11 +50,12 @@
     <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
     <string name="tap_on_mic">Tap on mic to speak</string>
     <string name="remove">Remove item</string>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_to_be_complete_header">ToBeCompleteHeader</string>
     <string name="title_activity_one_task">Edit To-Do Item</string>
     <string name="title_activity_activity_one_list_landscape">activity_one_list_landscape</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_dropbox__login_">Dropbox_Login_Activity</string>
+    <string name="title_activity_one_list">Derp</string>
 </resources>

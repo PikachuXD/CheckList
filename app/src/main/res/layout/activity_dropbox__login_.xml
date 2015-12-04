@@ -8,33 +8,17 @@
     android:id="@+id/Dropbox_Login"
     tools:context=".Dropbox_Login">
 
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fileName"
-        android:hint="Put the file name here"/>
-
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload list"
-        android:id="@+id/upload_btn"
-        android:onClick="upload"
-        android:layout_gravity="center" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="List files"
-        android:id="@+id/listFiles"
-        android:onClick="listFiles"
-        android:layout_gravity="center_horizontal" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="List of lists"
+        android:id="@+id/textView5" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fileList"
         android:layout_gravity="center_horizontal" />
+
 </LinearLayout>

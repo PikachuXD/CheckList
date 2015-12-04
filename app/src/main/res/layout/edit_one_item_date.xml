@@ -29,7 +29,9 @@
         android:onClick="editDate"
         android:layout_alignTop="@+id/editDate"
         android:layout_toLeftOf="@+id/editDate"
-        android:layout_toStartOf="@+id/editDate" />
+        android:layout_toStartOf="@+id/editDate"
+        android:layout_marginRight="26dp"
+        android:layout_marginEnd="26dp" />
 
     <View
         android:layout_width="match_parent"
@@ -91,7 +93,6 @@
         android:id="@+id/cleardatetime"
         android:background="#4fd5d6"
         android:textStyle="bold"
-        android:elevation="10dp"
         android:textColor="#FFFFFF"
         android:shadowColor="#000000"
         android:shadowRadius="8"

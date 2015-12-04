@@ -103,7 +103,7 @@ public class Dropbox_Login_Activity extends AppCompatActivity {
         //login to dropbox
         AppKeyPair appKeys = new AppKeyPair(appKey, appSecret);
 
-        if (accessTokenVal.equals("")) {
+        if (accessTokenVal.equals("none")) {
             AndroidAuthSession session;
             session = new AndroidAuthSession(appKeys);
             mDBApi = new DropboxAPI<AndroidAuthSession>(session);
@@ -236,7 +236,7 @@ public class Dropbox_Login_Activity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         longClicked = true;
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        String title = ((String) adapter.getItem(info.position));
+        String title = adapter.getItem(info.position);
         menu.setHeaderTitle(title);
         menu.add(Menu.NONE, 0, 0, "Delete");
     }

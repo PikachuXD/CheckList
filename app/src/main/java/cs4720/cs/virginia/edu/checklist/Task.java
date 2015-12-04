@@ -112,7 +112,7 @@ public class Task implements Parcelable, Comparable<Task> {
 
     public int compareTo(Task compareTask) {
 
-        String compto = ((Task) compareTask).getName();
+        String compto = compareTask.getName();
 
         return this.getName().compareTo(compto);
 

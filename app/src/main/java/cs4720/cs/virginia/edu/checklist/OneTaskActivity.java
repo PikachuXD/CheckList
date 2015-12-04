@@ -88,7 +88,7 @@ public class OneTaskActivity extends AppCompatActivity implements
 
         Intent intent = getIntent();
         if (intent != null) {
-            current = (Task) intent.getParcelableExtra("current");
+            current = intent.getParcelableExtra("current");
             nameField = (EditText) findViewById(R.id.edit_name);
             nameField.setText(current.getName());
             locField = (EditText) findViewById(R.id.edit_loc);
@@ -119,8 +119,8 @@ public class OneTaskActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             default:
                 current.setName(nameField.getText().toString());
-                intent.putExtra("current", (Parcelable) current);
-                intent.putExtra("original", (Parcelable) original);
+                intent.putExtra("current", current);
+                intent.putExtra("original", original);
                 setResult(RESULT_OK, intent);
                 finish();
         }
@@ -390,7 +390,7 @@ public class OneTaskActivity extends AppCompatActivity implements
 
     public void removeTask(View view) {
         Intent intent = new Intent();
-        intent.putExtra("original", (Parcelable) original);
+        intent.putExtra("original", original);
         setResult(9000, intent);
         finish();
     }

@@ -50,7 +50,8 @@ public class OneList_Activity extends AppCompatActivity {
     private String fileContents;
     private String FILE_DIR = "/SavedCheckLists/";
     private String accessToken;
-
+    private boolean edited;
+    private AppCompatActivity app = this;
     private DropboxAPI<AndroidAuthSession> mDBApi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,7 +237,7 @@ public class OneList_Activity extends AppCompatActivity {
             case R.id.share_on_dropbox:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 String[] beforeTxt = fileName.split(Pattern.quote("."));
-                builder.setTitle("Save the List");
+                builder.setTitle("Save the list as");
                 builder.setMessage("Input name of list");
                 final EditText inputField = new EditText(this);
                 inputField.setText(beforeTxt[0]);
@@ -248,6 +249,11 @@ public class OneList_Activity extends AppCompatActivity {
                         UploadFileToDropbox upload = new UploadFileToDropbox(context, mDBApi,
                                 FILE_DIR, toFileString(), n);
                         upload.execute();
+                        DeleteDropboxFile delete = new DeleteDropboxFile(context, mDBApi, FILE_DIR, fileName);
+                        delete.execute();
+                        fileName = n;
+                        app.setTitle(fileName);
+                        fileName += ".txt";
                     }
                 });
                 builder.setNegativeButton("Cancel", null);

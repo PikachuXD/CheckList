@@ -5,8 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
@@ -242,7 +240,7 @@ public class OneList_Activity extends AppCompatActivity {
                 final EditText inputField = new EditText(this);
                 inputField.setText(beforeTxt[0]);
                 builder.setView(inputField);
-                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String n = inputField.getText().toString();
